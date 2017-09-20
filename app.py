@@ -37,7 +37,7 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    print('body = '+body)
+    print('body = '+ body)
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -50,9 +50,13 @@ def callback():
 def handle_text_message(event):
     text = event.message.text #message from user
 
+    ack_text = text
+    if text == 'kuy':
+        ack_text = 'fuck you kuy'
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=text)) #reply the same message from user
+        TextSendMessage(text=ack_text)) #reply the same message from user
 
 
 if __name__ == "__main__":
