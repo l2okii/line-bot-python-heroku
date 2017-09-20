@@ -33,7 +33,8 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    print('body = '+ body)
+    request.host
+    print('host = '+ request.host)
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -45,8 +46,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
-    # user_id = event.source.userId
+    user_id = event.source.user_id
     ack_text = text
+
+    if  text.lower() == 'start':
+
+
     if text.lower() == 'kuy':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
 
