@@ -28,7 +28,7 @@ handler = WebhookHandler('ea522a6ca14dfe8c11571cf33d8ffe12') #Your Channel Secre
 def get():
     return 'get'
 
-@app.route("/callback", methods=['POST'])
+@app.route("/callback/", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
@@ -37,7 +37,7 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    print('bady = '+body)
+    print('body = '+body)
     # handle webhook body
     try:
         handler.handle(body, signature)
