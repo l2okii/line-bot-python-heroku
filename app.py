@@ -13,10 +13,6 @@ from linebot.models import (
 
 import os
 
-proxyDict = {
-              "http"  : os.environ.get('FIXIE_URL', ''),
-              "https" : os.environ.get('FIXIE_URL', '')
-            }
 
 app = Flask(__name__)
 
