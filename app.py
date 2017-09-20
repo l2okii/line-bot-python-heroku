@@ -11,6 +11,11 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+proxyDict = {
+              "http"  : os.environ.get('FIXIE_URL', ''),
+              "https" : os.environ.get('FIXIE_URL', '')
+            }
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkERtzOieiVybu74w1y/J8IlnXQTPL4ruCzcQU/atrrhTYLadhYkYxGUBh0dQhpaqJ6rVeRpJtinzwPJAML6jwX2GS05OXYXvnDQdB04t89/1O/w1cDnyilFU=')
@@ -22,7 +27,7 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     # get request body as text
-    body = request.get_data(as_text=True)
+    body = request.get_data(as_text=True, proxies=proxyDict)
     app.logger.info("Request body: " + body)
 
     # handle webhook body
