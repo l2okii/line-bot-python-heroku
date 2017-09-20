@@ -33,7 +33,7 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    print('host = '+ request.host)
+    print('host ================== '+ request.host)
     # handle webhook body
     try:
         handler.handle(body, signature)
