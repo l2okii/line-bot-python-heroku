@@ -45,7 +45,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
-    user_id = event.source.userId
+    # user_id = event.source.userId
     ack_text = text
     if text == 'kuy':
         ack_text = 'fuck you kuy' + event
