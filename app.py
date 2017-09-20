@@ -48,7 +48,7 @@ def handle_text_message(event):
     # user_id = event.source.userId
     ack_text = text
     if text.lower() == 'kuy':
-        ack_text = 'fuck you kuy' + str(event.replyToken.source.userId)
+        ack_text = 'fuck you kuy' + str(event.source)
 
     line_bot_api.reply_message(
         event.reply_token,
