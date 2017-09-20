@@ -33,7 +33,6 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    request.host
     print('host = '+ request.host)
     # handle webhook body
     try:
@@ -50,7 +49,7 @@ def handle_text_message(event):
     ack_text = text
 
     if  text.lower() == 'start':
-
+        pass
 
     if text.lower() == 'kuy':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
