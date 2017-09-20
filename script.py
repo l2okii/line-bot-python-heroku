@@ -2,7 +2,7 @@ import requests
 from threading import *
 
 
-def get_data(time_interval=5):
+def get_data(time_interval=10):
     t = Timer(time_interval, get_data)
     t.start()
 
