@@ -45,14 +45,30 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
-
+    user_id = event.source.userId
     ack_text = text
     if text == 'kuy':
-        ack_text = 'fuck you kuy'
+        ack_text = 'fuck you kuy' + user_id
 
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=ack_text)) #reply the same message from user
+
+
+
+@app.route("/post/", methods=['GET', 'POST'])
+def post_to_line():
+    if request.method == 'POST':
+        print(request.data)
+        try:
+            line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
+                text='l2ig-Alert ! \n{}'.format(request.data)))
+        except LineBotApiError as e:
+            print('botting error {}'.format(e))
+
+        return 'post'
+    else:
+        return "get"
 
 
 if __name__ == "__main__":
