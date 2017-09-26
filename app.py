@@ -172,7 +172,7 @@ def handle_text_message(event):
     elif text.find('register_') != -1:
         wallet_id = text.split('_')[-1:]
         db_adapter.insert_test(user_id,wallet_id)
-        ack_text = user_id, ' ',wallet_id
+        ack_text = user_id+'==='+wallet_id
         # wallet_id
     else:
         ack_text = 'fuck!!! wrong command'
