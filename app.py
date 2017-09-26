@@ -14,6 +14,7 @@ import os
 import requests
 from threading import *
 import json
+import db_adapter
 
 app = Flask(__name__)
 
@@ -101,32 +102,13 @@ def get_data(time_interval=1800):
     t = Timer(time_interval, get_data)
     t.start()
 
+    # a = db_adapter.select_test()
+
     data = get_data_now()
     is_complete = send_line_notify(data)
     if(is_complete != 0):
         pass
-    # r = requests.get(api_link+btc_wallet)
-    # if r.status_code != 200 or r.text.find('error') != -1:
-    #     print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
-    #     return
-    # data = r.text
-    # # print(data)
-    # p_data = process_data(data)
-    # # print p_data
-    # sending_text = '===================\n'
-    # for x in p_data:
-    #     sending_text += 'algo : ' + x['algo'] +'\n'
-    #     sending_text += 'speed : ' + x['speed'] + '\n'
-    #     sending_text += 'balance : ' + x['balance'] + '\n'
-    #     sending_text += '===================\n'
-    #
-    # print sending_text
-    #
-    # try:
-    #     line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
-    #         text='l2ig-Alert ! \n{}'.format(sending_text)))
-    # except LineBotApiError as e:
-    #     print('botting error {}'.format(e))
+
 
 
 def process_data(data):
@@ -187,6 +169,9 @@ def handle_text_message(event):
         ack_text = 'kuy price'
     elif text.lower() == 'hw status':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
+    elif text.find('register_') != -1:
+        wallet_id = text.split('_')[-1:]
+        print wallet_id
     else:
         ack_text = 'fuck!!! wrong command'
 
@@ -212,5 +197,4 @@ def post_to_line():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=os.environ['PORT'])
-    # app.run(host='0.0.0.0',port=5000)
     # get_data()
