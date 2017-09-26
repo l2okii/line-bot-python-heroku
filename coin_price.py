@@ -26,8 +26,8 @@ def get_btc_eth_price(data):
     res += 'BX Coin Price\n'
     res += '===================\n'
     json_data = json.loads(data)
-    res += 'BTC : ' + str(json_data['1']['last_price']) + 'THB\n'
-    res += 'ETH : ' + str(json_data['21']['last_price']) + 'THB\n'
+    res += 'BTC : ' + str(json_data['1']['last_price']) + ' THB\n'
+    res += 'ETH : ' + str(json_data['21']['last_price']) + ' THB\n'
     res += '===================\n'
     return res
 
