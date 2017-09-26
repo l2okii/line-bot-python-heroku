@@ -163,6 +163,7 @@ def handle_text_message(event):
 
     if wallet == [] and text.find('register_') == -1:
         ack_text = 'Please register first!!'
+        continue
 
 
     if text == 'hashing rate':
