@@ -161,10 +161,11 @@ def handle_text_message(event):
     wallet = db_adapter.select_by_line(user_id)
     print wallet
 
-    if wallet == []:
+    if wallet == [] and text.find('register_') == -1:
         ack_text = 'Please register first!!'
 
-    elif text == 'hashing rate':
+
+    if text == 'hashing rate':
         ack_text = get_data_now(wallet,1)
         # ack_text = 'hassssssh'
     elif text == 'all status':
@@ -174,6 +175,7 @@ def handle_text_message(event):
         ack_text = 'kuy price'
     elif text.lower() == 'hw status':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
+
     elif text.find('register_') != -1:
         wallet_id = text.split('_')[-1:][0]
         res = db_adapter.select_by_line(user_id)
