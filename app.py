@@ -172,8 +172,10 @@ def handle_text_message(event):
     elif text.find('register_') != -1:
         wallet_id = text.split('_')[-1:][0]
         res = db_adapter.select_by_line(user_id)
-        print len(res), ' ',res
-
+        if len(res) != 0:
+            ack_text = 'This line has been registered with wallet '+res[0]
+        else:
+            db_adapter.insert_test(user_id,wallet_id)
         # db_adapter.insert_test(user_id,wallet_id)
 
         print user_id, '===', wallet_id
