@@ -21,6 +21,7 @@ def get_data(coin_index=1):
     return p_data
 
 def get_btc_eth_price(data):
+    res = ''
     res += '===================\n'
     res += 'BX Coin Price\n'
     res += '===================\n'
