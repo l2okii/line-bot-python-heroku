@@ -182,7 +182,7 @@ def handle_text_message(event):
         # db_adapter.insert_test(user_id,wallet_id)
 
         print user_id, '===', wallet_id
-        ack_text = user_id+'==='+wallet_id
+        # ack_text = user_id+'==='+wallet_id
         # wallet_id
     else:
         ack_text = 'fuck!!! wrong command'
