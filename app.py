@@ -69,9 +69,11 @@ def get_data_now(btc_wallet,get_short=0):
     # print(data)
     p_data = process_data(data)
     # print p_data[:-1]
+    price = coin_price.get_data()
 
     sending_text = '===================\n'
     sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
+    sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
     sending_text += '===================\n'
 
     print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
