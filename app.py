@@ -15,6 +15,7 @@ import requests
 from threading import *
 import json
 import db_adapter
+import coin_price
 
 app = Flask(__name__)
 
@@ -173,7 +174,9 @@ def handle_text_message(event):
         ack_text = get_data_now(wallet[0][0],0)
         # ack_text = 'hwwwwww s'
     elif text == 'coin price':
-        ack_text = 'kuy price'
+        price = coin_price.get_data()
+        print price
+        ack_text = price
     elif text.lower() == 'hw status':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
 
