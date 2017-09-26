@@ -21,13 +21,13 @@ conn = psycopg2.connect(
 def select_test():
     sql = """SELECT * from l2ig_db;"""
     # try:
-        cur = conn.cursor()
-        cur.execute(sql)
-        rows = cur.fetchall()
-        for row in rows:
-            print ' ', row
-        cur.close()
-        return rows
+    cur = conn.cursor()
+    cur.execute(sql)
+    rows = cur.fetchall()
+    for row in rows:
+        print ' ', row
+    cur.close()
+    return rows
     # finally:
     #     if conn is not None:
     #         conn.close()
@@ -36,13 +36,13 @@ def select_test():
 def select_by_line(line_id):
     sql = """SELECT wallet_id FROM l2ig_db WHERE line_id=%s"""
     # try:
-        cur = conn.cursor()
-        # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
-        cur.execute(sql,(line_id,))
-        rows = cur.fetchall()
-        cur.close()
-        print rows
-        return rows
+    cur = conn.cursor()
+    # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
+    cur.execute(sql,(line_id,))
+    rows = cur.fetchall()
+    cur.close()
+    print rows
+    return rows
 
     # finally:
     #     if conn is not None:
@@ -51,11 +51,11 @@ def select_by_line(line_id):
 def insert_test(line_id,wallet_id):
     sql = """INSERT INTO l2ig_db(line_id,wallet_id) VALUES (%s,%s);"""
     # try:
-        cur = conn.cursor()
-        # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
-        cur.execute(sql,(line_id,wallet_id,))
-        conn.commit()
-        cur.close()
+    cur = conn.cursor()
+    # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
+    cur.execute(sql,(line_id,wallet_id,))
+    conn.commit()
+    cur.close()
     # finally:
     #     if conn is not None:
     #         conn.close()
@@ -63,11 +63,11 @@ def insert_test(line_id,wallet_id):
 def delete_by_line(line_id):
     sql = """DELETE FROM l2ig_db WHERE line_id=%s;"""
     # try:
-        cur = conn.cursor()
-        # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
-        cur.execute(sql,(line_id,))
-        conn.commit()
-        cur.close()
+    cur = conn.cursor()
+    # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
+    cur.execute(sql,(line_id,))
+    conn.commit()
+    cur.close()
     # finally:
     #     if conn is not None:
     #         conn.close()
