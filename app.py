@@ -59,7 +59,7 @@ btc_wallet = '3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 # port = '4000'
 
-def get_data_now(get_short=0, btc_wallet):
+def get_data_now(btc_wallet,get_short=0):
     r = requests.get(api_link+btc_wallet)
     if r.status_code != 200 or r.text.find('error') != -1:
         print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))

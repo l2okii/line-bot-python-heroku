@@ -19,6 +19,7 @@ conn = psycopg2.connect(
 # )
 
 def select_test():
+    print 'db_select'
     conn = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
@@ -42,6 +43,7 @@ def select_test():
 
 
 def select_by_line(line_id):
+    print 'db_select by line_id'
     conn = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
@@ -64,6 +66,7 @@ def select_by_line(line_id):
             conn.close()
 
 def insert_test(line_id,wallet_id):
+    print 'db_insert'
     conn = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
@@ -83,6 +86,7 @@ def insert_test(line_id,wallet_id):
             conn.close()
 
 def delete_by_line(line_id):
+    print 'db_delete'
     conn = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
@@ -102,6 +106,7 @@ def delete_by_line(line_id):
             conn.close()
 
 def update_with_line(line_id,new_wallet_id):
+    print 'db_update'
     conn = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
