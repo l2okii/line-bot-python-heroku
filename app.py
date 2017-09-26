@@ -182,8 +182,8 @@ def handle_text_message(event):
         res += '===================\n'
         res += 'BX Coin Price\n'
         res += '===================\n'
-        res += 'BTC : ' + price['BTC'] + ' THB\n'
-        res += 'ETH : ' + price['ETH'] + ' THB\n'
+        res += 'BTC : ' + str(price['BTC']) + ' THB\n'
+        res += 'ETH : ' + str(price['ETH']) + ' THB\n'
         res += '===================\n'
         print res
         ack_text = res
