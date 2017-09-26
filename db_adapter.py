@@ -101,6 +101,25 @@ def delete_by_line(line_id):
         if conn is not None:
             conn.close()
 
+def update_with_line(line_id,new_wallet_id):
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+    sql = """UPDATE l2ig_db SET wallet_id = %s WHERE line_id=%s;"""
+    try:
+        cur = conn.cursor()
+        cur.execute(sql,(new_wallet_id,line_id))
+        conn.commit()
+        cur.close()
+    finally:
+        if conn is not None:
+            conn.close()
+
+
 
 if __name__ == '__main__':
     select_test()
