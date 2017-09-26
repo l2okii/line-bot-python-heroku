@@ -178,10 +178,10 @@ def handle_text_message(event):
 
 
     if text == 'hashing rate':
-        ack_text = get_data_now(0)
+        ack_text = get_data_now(1)
         # ack_text = 'hassssssh'
     elif text == 'all status':
-        ack_text = get_data_now(1)
+        ack_text = get_data_now(0)
         # ack_text = 'hwwwwww s'
     elif text == 'coin price':
         ack_text = 'kuy price'
