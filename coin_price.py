@@ -21,15 +21,15 @@ def get_data(coin_index=1):
     return p_data
 
 def get_btc_eth_price(data):
-    res = ''
-    res += '===================\n'
-    res += 'BX Coin Price\n'
-    res += '===================\n'
-    json_data = json.loads(data)
-    res += 'BTC : ' + str(json_data['1']['last_price']) + ' THB\n'
-    res += 'ETH : ' + str(json_data['21']['last_price']) + ' THB\n'
-    res += '===================\n'
-    return res
+    # res = ''
+    # res += '===================\n'
+    # res += 'BX Coin Price\n'
+    # res += '===================\n'
+    # json_data = json.loads(data)
+    # res += 'BTC : ' + str(json_data['1']['last_price']) + ' THB\n'
+    # res += 'ETH : ' + str(json_data['21']['last_price']) + ' THB\n'
+    # res += '===================\n'
+    return {'BTC':json_data['1']['last_price'], 'ETH':json_data['21']['last_price']}
 
 def process_data(data,coin_index):
     json_data = json.loads(data)

@@ -85,6 +85,8 @@ def get_data_now(btc_wallet,get_short=0):
             sending_text += '===================\n'
 
 
+    # if sending_text.find('speed') == -1:
+    #     sending_text += 'Can not get hashing rate,\n May be Miner offline please check'
     return sending_text
 
 def send_line_notify(sending_text):
@@ -176,8 +178,15 @@ def handle_text_message(event):
         # ack_text = 'hwwwwww s'
     elif text == 'coin price':
         price = coin_price.get_data()
-        print price
-        ack_text = price
+        res = ''
+        res += '===================\n'
+        res += 'BX Coin Price\n'
+        res += '===================\n'
+        res += 'BTC : ' + price['BTC'] + ' THB\n'
+        res += 'ETH : ' + price['ETH'] + ' THB\n'
+        res += '===================\n'
+        print res
+        ack_text = res
     elif text.lower() == 'hw status':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
 
