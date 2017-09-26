@@ -178,7 +178,7 @@ def handle_text_message(event):
         if len(res) > 0:
             print res[0]
             db_adapter.update_with_line(user_id,wallet_id)
-            ack_text = 'This line account has been updated from walle: '+res[0][0] 'to new wallet: ' wallet_id
+            ack_text = 'This line account has been updated from walle: '+res[0][0] 'to new wallet: '+ wallet_id
         else:
             print 'in else'
             db_adapter.insert_test(user_id,wallet_id)
