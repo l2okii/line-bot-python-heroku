@@ -74,7 +74,7 @@ def get_data_now(btc_wallet,get_short=0):
     sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
     sending_text += '===================\n'
 
-    print 'len p data = ', len(p_data[:-1]) 
+    print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
     for x in p_data[:-1]:
         if get_short == 1 and float(x['speed'][:-3]) == 0:
             continue
