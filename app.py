@@ -161,7 +161,7 @@ def handle_text_message(event):
     wallet = db_adapter.select_by_line(user_id)
 
     print wallet
-    if wallet is None:
+    if wallet == '':
         ack_text = 'Please register first!!'
 
     elif text == 'hashing rate':
