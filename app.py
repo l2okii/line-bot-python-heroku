@@ -59,11 +59,11 @@ btc_wallet = '3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 # port = '4000'
 
-def get_data_now(get_short=0):
+def get_data_now(get_short=0, btc_wallet):
     r = requests.get(api_link+btc_wallet)
     if r.status_code != 200 or r.text.find('error') != -1:
         print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
-        return
+        return -1
     data = r.text
     # print(data)
     p_data = process_data(data)
@@ -158,8 +158,13 @@ def handle_text_message(event):
     user_id = event.source.user_id
     ack_text = text
 
+    wallet = db_adapter.select_by_line(user_id)
 
-    if text == 'hashing rate':
+    print wallet
+    if wallet is None:
+        ack_text = 'Please register first!!'
+
+    elif text == 'hashing rate':
         ack_text = get_data_now(1)
         # ack_text = 'hassssssh'
     elif text == 'all status':
@@ -178,7 +183,7 @@ def handle_text_message(event):
         if len(res) > 0:
             print res[0]
             db_adapter.update_with_line(user_id,wallet_id)
-            ack_text = 'This line account has been updated from walle: \n' + res[0][0] + '\n to new wallet: \n' + wallet_id
+            ack_text = 'This line account has been updated from wallet: \n' + res[0][0] + '\n to new wallet: \n' + wallet_id
         else:
             print 'in else'
             db_adapter.insert_test(user_id,wallet_id)
