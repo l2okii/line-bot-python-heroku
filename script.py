@@ -1,12 +1,14 @@
 import requests
 from threading import *
 
+host = 'http://127.0.0.1'
+port = '4000'
 
 def get_data(time_interval=10):
     t = Timer(time_interval, get_data)
     t.start()
 
-    r = requests.get("http://127.0.0.1:5002")
+    r = requests.get(host + ':' + port)
     if r.status_code != 200:
         print('error can not get data!! = ' + str(r.status_code))
         return
