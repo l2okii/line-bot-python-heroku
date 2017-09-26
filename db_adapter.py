@@ -28,9 +28,9 @@ def select_test():
             print ' ', row
         cur.close()
         return rows
-    finally:
-        if conn is not None:
-            conn.close()
+    # finally:
+    #     if conn is not None:
+    #         conn.close()
 
 def select_by_line(line_id):
     sql = """SELECT wallet_id FROM l2ig_db WHERE line_id=%s"""
@@ -43,9 +43,9 @@ def select_by_line(line_id):
         print rows
         return rows
 
-    finally:
-        if conn is not None:
-            conn.close()
+    # finally:
+    #     if conn is not None:
+    #         conn.close()
 
 def insert_test(line_id,wallet_id):
     sql = """INSERT INTO l2ig_db(line_id,wallet_id) VALUES (%s,%s);"""
@@ -55,9 +55,9 @@ def insert_test(line_id,wallet_id):
         cur.execute(sql,(line_id,wallet_id,))
         conn.commit()
         cur.close()
-    finally:
-        if conn is not None:
-            conn.close()
+    # finally:
+    #     if conn is not None:
+    #         conn.close()
 
 def delete_by_line(line_id):
     sql = """DELETE FROM l2ig_db WHERE line_id=%s;"""
@@ -67,9 +67,9 @@ def delete_by_line(line_id):
         cur.execute(sql,(line_id,))
         conn.commit()
         cur.close()
-    finally:
-        if conn is not None:
-            conn.close()
+    # finally:
+    #     if conn is not None:
+    #         conn.close()
 
 
 if __name__ == '__main__':
