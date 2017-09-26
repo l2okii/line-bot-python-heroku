@@ -171,7 +171,9 @@ def handle_text_message(event):
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
     elif text.find('register_') != -1:
         wallet_id = text.split('_')[-1:]
-        print wallet_id
+        db_adapter.insert_test(user_id,wallet_id)
+        ack_text = user_id, ' ',wallet_id
+        # wallet_id
     else:
         ack_text = 'fuck!!! wrong command'
 
