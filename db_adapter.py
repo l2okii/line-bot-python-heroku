@@ -20,7 +20,7 @@ conn = psycopg2.connect(
 
 def select_test():
     sql = """SELECT * from l2ig_db;"""
-    try:
+    # try:
         cur = conn.cursor()
         cur.execute(sql)
         rows = cur.fetchall()
@@ -32,9 +32,10 @@ def select_test():
     #     if conn is not None:
     #         conn.close()
 
+
 def select_by_line(line_id):
     sql = """SELECT wallet_id FROM l2ig_db WHERE line_id=%s"""
-    try:
+    # try:
         cur = conn.cursor()
         # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
         cur.execute(sql,(line_id,))
@@ -49,7 +50,7 @@ def select_by_line(line_id):
 
 def insert_test(line_id,wallet_id):
     sql = """INSERT INTO l2ig_db(line_id,wallet_id) VALUES (%s,%s);"""
-    try:
+    # try:
         cur = conn.cursor()
         # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
         cur.execute(sql,(line_id,wallet_id,))
@@ -61,7 +62,7 @@ def insert_test(line_id,wallet_id):
 
 def delete_by_line(line_id):
     sql = """DELETE FROM l2ig_db WHERE line_id=%s;"""
-    try:
+    # try:
         cur = conn.cursor()
         # cur.execute("""INSERT INTO l2ig_db(line_id,wallet_id) VALUES ('test_line_id=====','======test_wallet_id');""")
         cur.execute(sql,(line_id,))
