@@ -26,8 +26,8 @@ def select_test():
         rows = cur.fetchall()
         for row in rows:
             print ' ', row
-
         cur.close()
+        return rows
     finally:
         if conn is not None:
             conn.close()
@@ -73,7 +73,7 @@ def delete_by_line(line_id):
 
 
 if __name__ == '__main__':
-    # select_test()
+    select_test()
     # insert_test('kakline1','kakwall2')
     # select_by_line('kakline1')
     # delete_by_line('kakline1')
