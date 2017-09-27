@@ -26,7 +26,6 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     elif t_stop_flag == 0:
         if current_thread().getName() == (line_id+'_thread'):
             t_stop.clear()
-        else:
             t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread').start()
 
 
@@ -41,7 +40,7 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
 def run(time_interval, line_id, wallet_id, t_stop):
     get_short = 1
     while (not t_stop.is_set()):
-        print 'in thread - ', time_interval, '- name -', current_thread().getName()
+        print 'in thread - ', time_interval, '- name -', current_thread().getName(), '-- enumerate --', enumerate()
 
         # price = coin_price.get_data()
         # data = data_getter.get_data_now(wallet_id,0)
