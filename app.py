@@ -160,7 +160,8 @@ def handle_text_message(event):
 
     wallet = db_adapter.select_by_line(line_id)
     # print wallet
-    wallet_id = wallet[0][0]
+    if wallet != []:
+        wallet_id = wallet[0][0]
 
 
 
