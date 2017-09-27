@@ -10,6 +10,8 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from linebot.exceptions import LineBotApiError
+
 import os
 import requests
 from threading import *
