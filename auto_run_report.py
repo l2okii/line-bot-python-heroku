@@ -15,6 +15,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkERtzOieiVybu74w1y/J8IlnXQTPL4ruCzcQU/atrrhTYLadhYkYxGUBh0dQhpaqJ6rVeRpJtinzwPJAML6jwX2GS05OXYXvnDQdB04t89/1O/w1cDnyilFU=')
+
 def auto_report(line_id, wallet_id,time_interval=30):
     print time_interval, ' ', line_id, ' ', wallet_id
     t = Thread(target=run, args=(time_interval, line_id, wallet_id)).start()
