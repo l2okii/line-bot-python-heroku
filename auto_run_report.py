@@ -20,7 +20,7 @@ def auto_report(line_id, wallet_id,time_interval=30):
 
 
 def run(time_interval, line_id, wallet_id):
-    while true:
+    while True:
         price = coin_price.get_data()
         data = data_getter.get_data_now(wallet_id,0)
         if data == -1:
