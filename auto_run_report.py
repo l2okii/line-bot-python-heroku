@@ -3,6 +3,7 @@ import requests
 from threading import *
 import time
 import data_getter
+import coin_price
 
 from linebot import (
     LineBotApi, WebhookHandler
