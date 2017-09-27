@@ -2,8 +2,8 @@ import os
 import requests
 from threading import *
 import time
-import data_getter
-import coin_price
+# import data_getter
+# import coin_price
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -16,46 +16,58 @@ from linebot.models import (
 )
 
 line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkERtzOieiVybu74w1y/J8IlnXQTPL4ruCzcQU/atrrhTYLadhYkYxGUBh0dQhpaqJ6rVeRpJtinzwPJAML6jwX2GS05OXYXvnDQdB04t89/1O/w1cDnyilFU=')
+t_stop = Event()
 
-def auto_report(line_id, wallet_id,time_interval=30):
+def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     print time_interval, ' ', line_id, ' ', wallet_id
-    t = Thread(target=run, args=(time_interval, line_id, wallet_id)).start()
+
+    if t_stop_flag == 1:
+        t_stop.set()
+    elif t_stop_flag == 0:
+        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread').start()
+
+    # for x in enumerate():
+    #     print(x.getName())
+    #     if x.getName() == 'line_id_thread':
+    #         print(x.is_alive())
 
 
-def run(time_interval, line_id, wallet_id):
+def run(time_interval, line_id, wallet_id, t_stop):
     get_short = 1
-    while True:
-        price = coin_price.get_data()
-        data = data_getter.get_data_now(wallet_id,0)
-        if data == -1:
-            continue
-        p_data = data_getter.process_data(data)
-        if p_data == -1:
-            continue
+    while (not t_stop.is_set()):
+        print 'in thread'
 
-        sending_text = '===================\n'
-        sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
-        sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
-        sending_text += '===================\n'
-
-        is_running = False
-        # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
-        for x in p_data[:-1]:
-            if get_short == 1 and float(x['speed'][:-3]) == 0:
-                continue
-            else:
-                is_running = True
-                sending_text += 'algo : ' + x['algo'] +'\n'
-                sending_text += 'speed : ' + x['speed'] + '\n'
-                sending_text += 'balance : ' + x['balance'] + '\n'
-                sending_text += '===================\n'
-
-        if is_running == False:
-            sending_text += 'Miner Offline !!!\n'
-            sending_text += 'Please Check.\n'
-            sending_text += '===================\n'
-
-        send_line_notify(sending_text, line_id)
+        # price = coin_price.get_data()
+        # data = data_getter.get_data_now(wallet_id,0)
+        # if data == -1:
+        #     continue
+        # p_data = data_getter.process_data(data)
+        # if p_data == -1:
+        #     continue
+        #
+        # sending_text = '===================\n'
+        # sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
+        # sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
+        # sending_text += '===================\n'
+        #
+        # is_running = False
+        # # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
+        # for x in p_data[:-1]:
+        #     if get_short == 1 and float(x['speed'][:-3]) == 0:
+        #         continue
+        #     else:
+        #         is_running = True
+        #         sending_text += 'algo : ' + x['algo'] +'\n'
+        #         sending_text += 'speed : ' + x['speed'] + '\n'
+        #         sending_text += 'balance : ' + x['balance'] + '\n'
+        #         sending_text += '===================\n'
+        #
+        # if is_running == False:
+        #     sending_text += 'Miner Offline !!!\n'
+        #     sending_text += 'Please Check.\n'
+        #     sending_text += '===================\n'
+        #
+        # send_line_notify(sending_text, line_id)
         time.sleep(time_interval)
 
 
@@ -68,3 +80,6 @@ def send_line_notify(sending_text, line_id):
         print('botting error {}'.format(e))
         return -1
     return 0
+
+if __name__ == "__main__":
+    auto_report('line_id', 'wallet_id', 2, 0)
