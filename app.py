@@ -159,6 +159,7 @@ def handle_text_message(event):
 
     wallet = db_adapter.select_by_line(line_id)
     # print wallet
+    wallet_id = wallet[0][0]
 
 
 
@@ -166,10 +167,10 @@ def handle_text_message(event):
         ack_text = 'Please register first!! \n'
         ack_text += 'Ex. "register_YOURNHWALLET"'
     elif text == 'hashing rate':
-        ack_text = get_data_now(wallet[0][0],1)
+        ack_text = get_data_now(wallet_id,1)
         # ack_text = 'hassssssh'
     elif text == 'all status':
-        ack_text = get_data_now(wallet[0][0],0)
+        ack_text = get_data_now(wallet_id,0)
         # ack_text = 'hwwwwww s'
     elif text == 'coin price':
         price = coin_price.get_data()
