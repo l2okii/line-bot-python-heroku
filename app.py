@@ -209,10 +209,10 @@ def handle_text_message(event):
     elif text == 'Register':
         ack_text = 'send me text = register_YOURNHWALLET'
     elif text == 'start auto report':
-        auto_run_report.auto_report(line_id, wallet_id,30,0)
+        auto_run_report.auto_report(line_id, wallet_id,10,0)
         ack_text = 'auto report is activated'
     elif text == 'stop auto report':
-        auto_run_report.auto_report(line_id, wallet_id,30,1)
+        auto_run_report.auto_report(line_id, wallet_id,10,1)
         ack_text = 'auto report is deactivated'
     else:
         ack_text = 'Wrong command!!!'
