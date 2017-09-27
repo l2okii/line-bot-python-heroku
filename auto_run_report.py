@@ -26,8 +26,8 @@ def run(time_interval, line_id, wallet_id):
         data = data_getter.get_data_now(wallet_id,0)
         if data == -1:
             continue
-        data = data_getter.process_data(data)
-        if data == -1:
+        p_data = data_getter.process_data(data)
+        if p_data == -1:
             continue
 
         sending_text = '===================\n'
