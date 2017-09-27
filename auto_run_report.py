@@ -35,7 +35,7 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
 def run(time_interval, line_id, wallet_id, t_stop):
     get_short = 1
     while (not t_stop.is_set()):
-        print 'in thread - ', time_interval
+        print 'in thread - ', time_interval, '- name -', current_thread().getName()
 
         # price = coin_price.get_data()
         # data = data_getter.get_data_now(wallet_id,0)
