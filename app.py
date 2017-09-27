@@ -16,6 +16,7 @@ from threading import *
 import json
 import db_adapter
 import coin_price
+import auto_run_report
 
 app = Flask(__name__)
 
@@ -60,8 +61,8 @@ btc_wallet = '3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 # port = '4000'
 
-def get_data_now(btc_wallet,get_short=0):
-    r = requests.get(api_link+btc_wallet)
+def get_data_now(wallet_id,get_short=0):
+    r = requests.get(api_link+wallet_id)
     if r.status_code != 200 or r.text.find('error') != -1:
         print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
         return -1
@@ -76,7 +77,7 @@ def get_data_now(btc_wallet,get_short=0):
     sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
     sending_text += '===================\n'
 
-    print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
+    # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
     for x in p_data[:-1]:
         if get_short == 1 and float(x['speed'][:-3]) == 0:
             continue
@@ -91,29 +92,21 @@ def get_data_now(btc_wallet,get_short=0):
     #     sending_text += 'Can not get hashing rate,\n May be Miner offline please check'
     return sending_text
 
-def send_line_notify(sending_text):
-    try:
-        line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
-            text='l2ig-Alert ! \n{}'.format(sending_text)))
-    except LineBotApiError as e:
-        print('botting error {}'.format(e))
-        return -1
-    return 0
 
-def get_and_send(is_get_short):
-    data = get_data_now(is_get_short)
-    is_complete = send_line_notify(data)
-
-def get_data(time_interval=1800):
-    t = Timer(time_interval, get_data)
-    t.start()
-
-    # a = db_adapter.select_test()
-
-    data = get_data_now()
-    is_complete = send_line_notify(data)
-    if(is_complete != 0):
-        pass
+# def get_and_send(is_get_short):
+#     data = get_data_now(is_get_short)
+#     is_complete = send_line_notify(data)
+#
+# def get_data(time_interval=1800):
+#     t = Timer(time_interval, get_data)
+#     t.start()
+#
+#     # a = db_adapter.select_test()
+#
+#     data = get_data_now()
+#     is_complete = send_line_notify(data)
+#     if(is_complete != 0):
+#         pass
 
 
 
@@ -161,11 +154,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
-    user_id = event.source.user_id
+    line_id = event.source.user_id
     ack_text = text
 
-    wallet = db_adapter.select_by_line(user_id)
-    print wallet
+    wallet = db_adapter.select_by_line(line_id)
+    # print wallet
 
 
 
@@ -187,34 +180,37 @@ def handle_text_message(event):
         res += 'BTC : ' + str(price['BTC']) + ' THB\n'
         res += 'ETH : ' + str(price['ETH']) + ' THB\n'
         res += '===================\n'
-        print res
+        # print res
         ack_text = res
     elif text.lower() == 'hw status':
         ack_text = 'fuck you kuy \n' + str(event.source.user_id)
 
     elif text.find('register_') != -1:
         wallet_id = text.split('_')[-1:][0]
-        res = db_adapter.select_by_line(user_id)
+        res = db_adapter.select_by_line(line_id)
 
-        print res, ' ', len(res)
+        # print res, ' ', len(res)
 
         if len(res) > 0:
-            print res[0]
-            db_adapter.update_with_line(user_id,wallet_id)
+            # print res[0]
+            db_adapter.update_with_line(line_id,wallet_id)
             ack_text = 'This line account has been updated from wallet: \n' + res[0][0] + '\n to new wallet: \n' + wallet_id
         else:
-            print 'in else'
-            db_adapter.insert_test(user_id,wallet_id)
+            # print 'in else'
+            db_adapter.insert_test(line_id,wallet_id)
             ack_text = 'This line account has been register with wallet: '+ wallet_id
         # db_adapter.insert_test(user_id,wallet_id)
 
-        print user_id, '===', wallet_id
+        # print user_id, '===', wallet_id
         # ack_text = user_id+'==='+wallet_id
         # wallet_id
     elif text == 'Register':
         ack_text = 'send me text = register_YOURNHWALLET'
+    elif text == 'auto report':
+        auto_run_report.auto_report(line_id, wallet_id)
+        ack_text = 'auto report is activated'
     else:
-        ack_text = 'fuck!!! wrong command'
+        ack_text = 'Wrong command!!!'
 
     line_bot_api.reply_message(
         event.reply_token,
@@ -224,7 +220,7 @@ def handle_text_message(event):
 @app.route("/post/", methods=['GET', 'POST'])
 def post_to_line():
     if request.method == 'POST':
-        print(request.data)
+        # print(request.data)
         try:
             line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
                 text='l2ig-Alert ! \n{}'.format(request.data)))
