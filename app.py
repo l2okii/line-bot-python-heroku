@@ -79,15 +79,22 @@ def get_data_now(wallet_id,get_short=0):
     sending_text += '===================\n'
 
     # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
+    is_running = False
     for x in p_data[:-1]:
         if get_short == 1 and float(x['speed'][:-3]) == 0:
             continue
         else:
+            is_running = True
             sending_text += 'algo : ' + x['algo'] +'\n'
             sending_text += 'speed : ' + x['speed'] + '\n'
             sending_text += 'balance : ' + x['balance'] + '\n'
             sending_text += '===================\n'
 
+
+    if is_running == False:
+        sending_text += 'Miner Offline !!!\n'
+        sending_text += 'Please Check.\n'
+        sending_text += '===================\n'
 
     # if sending_text.find('speed') == -1:
     #     sending_text += 'Can not get hashing rate,\n May be Miner offline please check'
