@@ -27,6 +27,7 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
         if current_thread().getName() == (line_id+'_thread'):
             t_stop.clear()
             print 'after stop thread = ', enumerate()
+        t_stop.clear()
         t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread').start()
 
 
