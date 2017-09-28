@@ -65,7 +65,7 @@ def select_by_line(line_id):
         if conn is not None:
             conn.close()
 
-def insert_test(line_id, wallet_id, is_auto):
+def register_new_line(line_id, wallet_id, is_auto=False):
     print 'db_insert'
     conn = psycopg2.connect(
         database=url.path[1:],

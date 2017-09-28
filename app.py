@@ -210,7 +210,7 @@ def handle_text_message(event):
             ack_text = 'This line account has been updated from wallet: \n' + res[0][0] + '\n to new wallet: \n' + wallet_id
         else:
             # print 'in else'
-            db_adapter.insert_test(line_id,wallet_id)
+            db_adapter.register_new_line(line_id,wallet_id)
             ack_text = 'This line account has been register with wallet: '+ wallet_id
         # db_adapter.insert_test(user_id,wallet_id)
 
