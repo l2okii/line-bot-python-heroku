@@ -155,8 +155,8 @@ class Worker(threading.Thread):
             time.sleep(self.interval)
 
 
-    def setName(new_name):
-        self.setName()
+    def setName(self, new_name):
+        self.setName(new_name)
 
     def set_val(self, new_val):
         self.val = new_val
