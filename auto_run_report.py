@@ -23,35 +23,6 @@ t_flag.is_run = 0
 print dir(t_flag), current_thread().getName()
 
 def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
-    print time_interval, ' ', line_id, ' ', wallet_id
-    # print '\n1111current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
-    print dir(t_flag), '1111111', current_thread().getName()
-
-    t_flag.is_run = 0
-
-    t_stop = Event()
-    if t_stop_flag == 1:
-        t_stop.set()
-        t_flag.is_run = 0
-
-    elif t_stop_flag == 0:
-        # t_flag.run = 1
-        for x in enumerate():
-            if x.getName() == (line_id+'_thread'):
-                t_stop.clear()
-                t_flag.is_run = 1
-                t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
-                t.start()
-        if t_stop.is_set():
-            t_stop.clear()
-        t_flag.is_run = 1
-        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
-        t.start()
-
-        # print dir(t_flag), '2222222'
-
-    # print '\n2222current thread = ', current_thread().getName(), ' -- all thread --' , enumerate(), 't_flag = ', t_flag.is_run, '=====', dir(t_flag)
-
 
     def run(time_interval, line_id, wallet_id, t_stop):
         get_short = 1
@@ -94,6 +65,36 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
             #
             # send_line_notify(sending_text, line_id)
             time.sleep(time_interval)
+
+    print time_interval, ' ', line_id, ' ', wallet_id
+    # print '\n1111current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
+    print dir(t_flag), '1111111', current_thread().getName()
+
+    t_flag.is_run = 0
+
+    t_stop = Event()
+    if t_stop_flag == 1:
+        t_stop.set()
+        t_flag.is_run = 0
+
+    elif t_stop_flag == 0:
+        # t_flag.run = 1
+        for x in enumerate():
+            if x.getName() == (line_id+'_thread'):
+                t_stop.clear()
+                t_flag.is_run = 1
+                t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
+                t.start()
+        if t_stop.is_set():
+            t_stop.clear()
+        t_flag.is_run = 1
+        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
+        t.start()
+
+        # print dir(t_flag), '2222222'
+
+    # print '\n2222current thread = ', current_thread().getName(), ' -- all thread --' , enumerate(), 't_flag = ', t_flag.is_run, '=====', dir(t_flag)
+
 
 
 
