@@ -151,7 +151,7 @@ class Worker(threading.Thread):
                 sending_text += 'Please Check.\n'
                 sending_text += '===================\n'
 
-            send_line_notify(self.sending_text, self.line_id)
+            send_line_notify(sending_text, self.line_id)
             time.sleep(self.interval)
 
 
