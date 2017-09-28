@@ -41,7 +41,7 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
                 t_flag.is_run = 1
         if t_stop.is_set():
             t_stop.clear()
-        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread').start()
+        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop, t_flag), name=line_id+'_thread').start()
         t_flag.is_run = 1
 
 
