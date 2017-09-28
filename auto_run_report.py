@@ -24,7 +24,7 @@ print dir(t_flag), current_thread().getName()
 
 def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
 
-    def run(time_interval, line_id, wallet_id, t_stop):
+    def run(time_interval, line_id, wallet_id, t_stop, t_flag):
         get_short = 1
         while (not t_stop.is_set()):
             print '==============================='
@@ -83,12 +83,12 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
             if x.getName() == (line_id+'_thread'):
                 t_stop.clear()
                 t_flag.is_run = 1
-                t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
+                t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop, t_flag), name=line_id+'_thread')
                 t.start()
         if t_stop.is_set():
             t_stop.clear()
         t_flag.is_run = 1
-        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
+        t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop, t_flag), name=line_id+'_thread')
         t.start()
 
         # print dir(t_flag), '2222222'
