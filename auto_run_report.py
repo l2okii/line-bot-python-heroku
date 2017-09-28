@@ -21,7 +21,7 @@ line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkE
 def auto_report(line_id, wallet_id):
 
     obj = Worker(line_id, wallet_id, True)
-    obj.setName(line_id+'_thread')
+    obj.set_name(line_id+'_thread')
     return obj
 
     #
@@ -155,7 +155,7 @@ class Worker(threading.Thread):
             time.sleep(self.interval)
 
 
-    def setName(self, new_name):
+    def set_name(self, new_name):
         self.setName(new_name)
 
     def set_val(self, new_val):
