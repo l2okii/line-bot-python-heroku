@@ -46,10 +46,11 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
             t_stop.clear()
         t_flag.is_run = 1
         t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread')
-        t.start()
         aa = t.local()
         aa.var = 0
         print dir(aa), aa.var
+        t.start()
+
         # print dir(t_flag), '2222222'
 
     # print '\n2222current thread = ', current_thread().getName(), ' -- all thread --' , enumerate(), 't_flag = ', t_flag.is_run, '=====', dir(t_flag)
