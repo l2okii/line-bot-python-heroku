@@ -226,7 +226,8 @@ def handle_text_message(event):
             thread_obj.update({line_id:obj})
             obj.start()
         else:
-            print thread_obj[line_id].isAlive()
+            obj = thread_obj[line_id]
+            obj.start()
 
         ack_text = 'auto report is activated'
     elif text.lower() == 'stop':
