@@ -232,7 +232,9 @@ def handle_text_message(event):
     elif text.lower() == 'stop':
         print thread_obj
         if line_id in thread_obj:
+            obj = thread_obj[line_id]
             obj.set_val(False)
+            print 'thread_obj = ', thread_obj
             # obj = auto_run_report.auto_report(line_id, wallet_id)
             # thread_obj.update({line_id:obj})
             # obj.start()
