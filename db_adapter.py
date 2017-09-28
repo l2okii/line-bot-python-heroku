@@ -18,7 +18,7 @@ conn = psycopg2.connect(
 #     "dbname='mylocaldb' user='postgres' host='localhost' password=''"
 # )
 
-def select_test():
+def select_all():
     print 'db_select'
     conn = psycopg2.connect(
         database=url.path[1:],

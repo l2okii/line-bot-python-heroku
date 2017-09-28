@@ -270,9 +270,15 @@ def post_to_line():
         return "get"
 
 def server_restart():
+
+    rows = db_adapter.select_all()
+    print rows
+    print '0000000000000'
+    for row in rows:
+        print row
     try:
         line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
-            text='l2ig-Alert ! \n{}'.format('server just restarted')))
+            text='l2ig-Alert ! \n{}'.format('Server just restarted')))
     except LineBotApiError as e:
         print('botting error {}'.format(e))
 
@@ -280,4 +286,3 @@ def server_restart():
 if __name__ == "__main__":
     server_restart()
     app.run(host='0.0.0.0',port=os.environ['PORT'])
-    # get_data()
