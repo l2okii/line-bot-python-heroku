@@ -170,7 +170,9 @@ def handle_text_message(event):
     if wallet != []:
         wallet_id = wallet[0][0]
 
-
+    print '======= command ========/n'
+    print text
+    print '======= command ========/n'
 
     if wallet == [] and text.find('register_') == -1:
         ack_text = 'Please register first!! \n'
@@ -244,7 +246,15 @@ def post_to_line():
     else:
         return "get"
 
+def server_restart():
+    try:
+        line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
+            text='l2ig-Alert ! \n{}'.format(request.data)))
+    except LineBotApiError as e:
+        print('botting error {}'.format(e))
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=os.environ['PORT'])
+
     # get_data()
