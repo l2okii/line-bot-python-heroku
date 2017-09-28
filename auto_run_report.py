@@ -22,7 +22,7 @@ t_flag.is_run = 0
 def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     print time_interval, ' ', line_id, ' ', wallet_id
     print '1111current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
-    t_flag.run = 0
+    t_flag.is_run = 0
 
     t_stop = Event()
     if t_stop_flag == 1:
