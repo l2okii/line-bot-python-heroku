@@ -278,6 +278,6 @@ def server_restart():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=os.environ['PORT'])
     server_restart()
+    app.run(host='0.0.0.0',port=os.environ['PORT'])
     # get_data()
