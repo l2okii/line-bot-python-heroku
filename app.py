@@ -220,7 +220,7 @@ def handle_text_message(event):
     elif text == 'Register':
         ack_text = 'send me text = register_YOURNHWALLET'
     elif text.lower() == 'start':
-
+        print thread_obj
         if line_id not in thread_obj:
             obj = auto_run_report.auto_report(line_id, wallet_id)
             thread_obj.update({line_id:obj})
