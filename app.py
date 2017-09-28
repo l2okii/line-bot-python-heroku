@@ -274,19 +274,20 @@ def server_restart():
     rows = db_adapter.select_all()
     print rows
     print '0000000000000'
+    thread_count = 0
     for row in rows:
         line_id = row[0]
         wallet_id = row[1]
         is_auto = row[2]
         if is_auto:
+            thread_count += 1
             obj = auto_run_report.auto_report(line_id, wallet_id)
             thread_obj.update({line_id:obj})
             obj.start()
             db_adapter.update_auto_state(line_id,True)
-
     try:
         line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
-            text='l2ig-Alert ! \n{}'.format('Server just restarted')))
+            text='l2ig-Alert ! \n{}'.format('Server just restarted'+ '_' + str(thread_count))))
     except LineBotApiError as e:
         print('botting error {}'.format(e))
 
