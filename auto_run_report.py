@@ -18,7 +18,7 @@ from linebot.models import (
 line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkERtzOieiVybu74w1y/J8IlnXQTPL4ruCzcQU/atrrhTYLadhYkYxGUBh0dQhpaqJ6rVeRpJtinzwPJAML6jwX2GS05OXYXvnDQdB04t89/1O/w1cDnyilFU=')
 
 t_flag = local()
-
+t_flag.is_run = 0
 def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     print time_interval, ' ', line_id, ' ', wallet_id
     print '1111current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
@@ -27,7 +27,7 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     t_stop = Event()
     if t_stop_flag == 1:
         t_stop.set()
-        t_flag.run = 0
+        t_flag.is_run = 0
 
     elif t_stop_flag == 0:
         # t_flag.run = 1
@@ -38,7 +38,7 @@ def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
         if t_stop.is_set():
             t_stop.clear()
         t = Thread(target=run, args=(time_interval, line_id, wallet_id, t_stop), name=line_id+'_thread').start()
-        t_flag.run = 1
+        t_flag.is_run = 1
 
 
     print '2222current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
@@ -48,7 +48,7 @@ def run(time_interval, line_id, wallet_id, t_stop):
     get_short = 1
     while (not t_stop.is_set()):
         print 'in thread - ', time_interval, '- name -', current_thread().getName(), '-- enumerate --', enumerate()
-        print t_flag.run, 'thread name = ', current_thread().getName()
+        print t_flag.is_run, 'thread name = ', current_thread().getName()
         #
         # price = coin_price.get_data()
         # data = data_getter.get_data_now(wallet_id,0)
