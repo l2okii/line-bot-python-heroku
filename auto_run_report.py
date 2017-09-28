@@ -17,10 +17,11 @@ from linebot.models import (
 
 line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkERtzOieiVybu74w1y/J8IlnXQTPL4ruCzcQU/atrrhTYLadhYkYxGUBh0dQhpaqJ6rVeRpJtinzwPJAML6jwX2GS05OXYXvnDQdB04t89/1O/w1cDnyilFU=')
 
+t_flag = local()
+
 def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     print time_interval, ' ', line_id, ' ', wallet_id
     print '1111current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
-    t_flag = local()
     t_flag.run = 0
 
     t_stop = Event()
