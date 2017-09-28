@@ -65,7 +65,7 @@ def select_by_line(line_id):
         if conn is not None:
             conn.close()
 
-def register_new_line(line_id, wallet_id, is_auto=False):
+def register_new_line(line_id, wallet_id, is_auto=0):
     print 'db_insert'
     conn = psycopg2.connect(
         database=url.path[1:],
@@ -75,7 +75,7 @@ def register_new_line(line_id, wallet_id, is_auto=False):
         port=url.port
     )
 
-    sql = """INSERT INTO l2ig_db(line_id,wallet_id, is_auto) VALUES (%s,%s,%r);"""
+    sql = """INSERT INTO l2ig_db(line_id,wallet_id, is_auto) VALUES (%s,%s,%d);"""
     try:
         cur = conn.cursor()
         cur.execute(sql,(line_id,wallet_id,is_auto))
@@ -134,7 +134,7 @@ def update_auto_state(line_id, is_auto):
         host=url.hostname,
         port=url.port
     )
-    sql = """UPDATE l2ig_db SET is_auto = %r WHERE line_id=%s;"""
+    sql = """UPDATE l2ig_db SET is_auto = %d WHERE line_id=%s;"""
     try:
         cur = conn.cursor()
         cur.execute(sql,(is_auto,line_id))
