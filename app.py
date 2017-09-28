@@ -275,7 +275,15 @@ def server_restart():
     print rows
     print '0000000000000'
     for row in rows:
-        print row
+        line_id = row[0]
+        wallet_id = row[1]
+        is_auto = row[2]
+        if is_auto:
+            obj = auto_run_report.auto_report(line_id, wallet_id)
+            thread_obj.update({line_id:obj})
+            obj.start()
+            db_adapter.update_auto_state(line_id,True)
+
     try:
         line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
             text='l2ig-Alert ! \n{}'.format('Server just restarted')))
