@@ -177,7 +177,7 @@ def handle_text_message(event):
 
     if wallet == [] and text.find('register_') == -1:
         ack_text = 'Please register first!! \n'
-        ack_text += 'Ex. "register_YOURNHWALLET"'
+        ack_text += 'Ex. "register_YOURNICEHASHWALLET"'
     elif text == 'hashing rate':
         ack_text = get_data_now(wallet_id,1)
         # ack_text = 'hassssssh'
@@ -206,7 +206,7 @@ def handle_text_message(event):
 
         if len(res) > 0:
             # print res[0]
-            db_adapter.update_with_line(line_id,wallet_id)
+            db_adapter.update_wallet(line_id,wallet_id)
             ack_text = 'This line account has been updated from wallet: \n' + res[0][0] + '\n to new wallet: \n' + wallet_id
         else:
             # print 'in else'
@@ -225,6 +225,7 @@ def handle_text_message(event):
             obj = auto_run_report.auto_report(line_id, wallet_id)
             thread_obj.update({line_id:obj})
             obj.start()
+            db_adapter.update_auto_state(line_id,True)
         # else:
         #     obj = thread_obj[line_id]
         #     obj.start()
@@ -236,6 +237,7 @@ def handle_text_message(event):
             obj = thread_obj[line_id]
             obj.set_val(False)
             del thread_obj[line_id]
+            db_adapter.update_auto_state(line_id,False)
             print 'thread_obj = ', thread_obj
             # obj = auto_run_report.auto_report(line_id, wallet_id)
             # thread_obj.update({line_id:obj})
@@ -270,12 +272,12 @@ def post_to_line():
 def server_restart():
     try:
         line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
-            text='l2ig-Alert ! \n{}'.format(request.data)))
+            text='l2ig-Alert ! \n{}'.format('server just restarted')))
     except LineBotApiError as e:
         print('botting error {}'.format(e))
 
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=os.environ['PORT'])
-
+    server_restart()
     # get_data()

@@ -65,7 +65,7 @@ def select_by_line(line_id):
         if conn is not None:
             conn.close()
 
-def insert_test(line_id,wallet_id):
+def insert_test(line_id, wallet_id, is_auto):
     print 'db_insert'
     conn = psycopg2.connect(
         database=url.path[1:],
@@ -75,10 +75,10 @@ def insert_test(line_id,wallet_id):
         port=url.port
     )
 
-    sql = """INSERT INTO l2ig_db(line_id,wallet_id) VALUES (%s,%s);"""
+    sql = """INSERT INTO l2ig_db(line_id,wallet_id, is_auto) VALUES (%s,%s,%r);"""
     try:
         cur = conn.cursor()
-        cur.execute(sql,(line_id,wallet_id,))
+        cur.execute(sql,(line_id,wallet_id,is_auto))
         conn.commit()
         cur.close()
     finally:
@@ -105,7 +105,7 @@ def delete_by_line(line_id):
         if conn is not None:
             conn.close()
 
-def update_with_line(line_id,new_wallet_id):
+def update_wallet(line_id, new_wallet_id):
     print 'db_update'
     conn = psycopg2.connect(
         database=url.path[1:],
@@ -118,6 +118,26 @@ def update_with_line(line_id,new_wallet_id):
     try:
         cur = conn.cursor()
         cur.execute(sql,(new_wallet_id,line_id))
+        conn.commit()
+        cur.close()
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def update_auto_state(line_id, is_auto):
+    print 'db_update'
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+    sql = """UPDATE l2ig_db SET is_auto = %r WHERE line_id=%s;"""
+    try:
+        cur = conn.cursor()
+        cur.execute(sql,(is_auto,line_id))
         conn.commit()
         cur.close()
     finally:
