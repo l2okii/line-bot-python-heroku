@@ -61,6 +61,7 @@ btc_wallet = '3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'
 
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 # port = '4000'
+thread_obj = {}
 
 def get_data_now(wallet_id,get_short=0):
     r = requests.get(api_link+wallet_id)
@@ -218,11 +219,17 @@ def handle_text_message(event):
         # wallet_id
     elif text == 'Register':
         ack_text = 'send me text = register_YOURNHWALLET'
-    elif text == 'start auto report':
-        auto_run_report.auto_report(line_id, wallet_id,1800,0)
+    elif text == 'start':
+
+        if line_id not in thread_obj:
+            obj = auto_run_report.auto_report(line_id, wallet_id)
+            thread_obj.update({line_id:obj})
+        else:
+            print thread_obj[line_id].isAlive()
+
         ack_text = 'auto report is activated'
-    elif text == 'stop auto report':
-        auto_run_report.auto_report(line_id, wallet_id,1800,1)
+    elif text == 'stop':
+        # auto_run_report.auto_report(line_id, wallet_id)
         ack_text = 'auto report is deactivated'
     else:
         ack_text = 'Wrong command!!!'
