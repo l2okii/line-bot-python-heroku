@@ -230,6 +230,15 @@ def handle_text_message(event):
 
         ack_text = 'auto report is activated'
     elif text.lower() == 'stop':
+        print thread_obj
+        if line_id in thread_obj:
+            obj.set_val(False)
+            # obj = auto_run_report.auto_report(line_id, wallet_id)
+            # thread_obj.update({line_id:obj})
+            # obj.start()
+        # else:
+        #     print thread_obj[line_id].isAlive()
+
         # auto_run_report.auto_report(line_id, wallet_id)
         ack_text = 'auto report is deactivated'
     else:
