@@ -98,7 +98,7 @@ def auto_report(line_id, wallet_id):
 
 class Worker(threading.Thread):
     ns = threading.local()
-    interval = 10
+    interval = 1800
     def __init__(self, line_id, wallet_id, val):
         threading.Thread.__init__(self)
         self.val = val
