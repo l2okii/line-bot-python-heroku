@@ -224,6 +224,7 @@ def handle_text_message(event):
         if line_id not in thread_obj:
             obj = auto_run_report.auto_report(line_id, wallet_id)
             thread_obj.update({line_id:obj})
+            obj.start()
         else:
             print thread_obj[line_id].isAlive()
 
