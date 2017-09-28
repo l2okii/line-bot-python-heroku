@@ -20,12 +20,12 @@ line_bot_api = LineBotApi('nZCWA89uFKpYTnklDBwXUm6qYE7OgprVM/GJKQ5BPoGxvCDtNzhkE
 t_flag = local()
 t_flag.is_run = 0
 
-print dir(t_flag)
+print dir(t_flag), current_thread().getName()
 
 def auto_report(line_id, wallet_id,time_interval=30,t_stop_flag=0):
     print time_interval, ' ', line_id, ' ', wallet_id
     # print '\n1111current thread = ', current_thread().getName(), ' -- all thread --' , enumerate()
-    print dir(t_flag), '1111111'
+    print dir(t_flag), '1111111', current_thread().getName()
 
     t_flag.is_run = 0
 
