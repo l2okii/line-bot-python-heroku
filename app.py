@@ -244,7 +244,6 @@ def handle_text_message(event):
             # obj.start()
         # else:
         #     print thread_obj[line_id].isAlive()
-
         # auto_run_report.auto_report(line_id, wallet_id)
         ack_text = 'auto report is deactivated'
     else:
