@@ -50,7 +50,7 @@ def run(time_interval, line_id, wallet_id, t_stop):
     while (not t_stop.is_set()):
         print '==============================='
         print 'in thread - ', time_interval, '- name -', current_thread().getName(), '-- enumerate --', enumerate()
-        print t_flag.is_run, 'thread name = ', current_thread().getName()
+        print dir(t_flag), 'thread name = ', current_thread().getName()
         print '==============================='
 
         #
