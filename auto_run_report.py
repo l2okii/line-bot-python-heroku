@@ -151,6 +151,12 @@ class Worker(threading.Thread):
                 sending_text += 'Please Check.\n'
                 sending_text += '===================\n'
 
+            sending_text += 'BX Coin Price\n'
+            sending_text += '===================\n'
+            sending_text += 'BTC : ' + str(price['BTC']) + ' THB\n'
+            sending_text += 'ETH : ' + str(price['ETH']) + ' THB\n'
+            sending_text += '===================\n'
+
             send_line_notify(sending_text, self.line_id)
             time.sleep(self.interval)
 
