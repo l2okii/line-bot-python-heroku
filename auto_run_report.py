@@ -121,7 +121,7 @@ class Worker(threading.Thread):
 
 
             price = coin_price.get_data()
-            data = data_getter.get_data_now(self.wallet_id,0)
+            data = data_getter.get_data_now(self.wallet_id)
             if data == -1:
                 continue
             p_data = data_getter.process_data(data)
