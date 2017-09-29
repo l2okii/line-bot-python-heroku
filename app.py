@@ -219,7 +219,7 @@ def handle_text_message(event):
         # wallet_id
     elif text == 'Register':
         ack_text = 'send me text = register_YOURNHWALLET'
-    elif text.lower() == 'start':
+    elif text.lower() == 'start auto report':
         print thread_obj
         if line_id not in thread_obj:
             obj = auto_run_report.auto_report(line_id, wallet_id)
@@ -231,7 +231,7 @@ def handle_text_message(event):
         #     obj.start()
 
         ack_text = 'auto report is activated'
-    elif text.lower() == 'stop':
+    elif text.lower() == 'stop auto report':
         print thread_obj
         if line_id in thread_obj:
             obj = thread_obj[line_id]
@@ -267,6 +267,7 @@ def post_to_line():
         return 'post'
     else:
         return "get"
+
 
 def server_restart():
 
