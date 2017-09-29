@@ -68,9 +68,11 @@ def get_data_now(wallet_id,get_short=0):
     price = coin_price.get_data()
     data = data_getter.get_data_now(wallet_id)
     if data == -1:
+        print 'data = -1'
         return -1
     p_data = data_getter.process_data(data)
     if p_data == -1:
+        print 'data = -1'
         return -1
 
     sending_text = '===================\n'

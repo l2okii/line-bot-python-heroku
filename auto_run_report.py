@@ -115,8 +115,9 @@ class Worker(threading.Thread):
 
         while (self.val):
             print '\n==============================='
-            print '\nin thread - ', '- name -', threading.current_thread().getName(), '-- enumerate --', threading.enumerate()
-            print '\nthread name = ', threading.current_thread().getName()
+            print '\n in Thread Auto Report'
+            # print '\nin thread - ', '- name -', threading.current_thread().getName(), '-- enumerate --', threading.enumerate()
+            # print '\nthread name = ', threading.current_thread().getName()
             print '\n==============================='
 
 
