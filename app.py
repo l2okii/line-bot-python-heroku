@@ -18,6 +18,7 @@ import json
 import db_adapter
 import coin_price
 import auto_run_report
+import data_getter
 
 app = Flask(__name__)
 
@@ -60,19 +61,17 @@ handler = WebhookHandler('ea522a6ca14dfe8c11571cf33d8ffe12') #Your Channel Secre
 btc_wallet = '3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'
 
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
-# port = '4000'
 thread_obj = {}
 
 def get_data_now(wallet_id,get_short=0):
-    r = requests.get(api_link+wallet_id)
-    if r.status_code != 200 or r.text.find('error') != -1:
-        print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
-        return -1
-    data = r.text
-    # print(data)
-    p_data = process_data(data)
-    # print p_data[:-1]
+
     price = coin_price.get_data()
+    data = data_getter.get_data_now(wallet_id)
+    if data == -1:
+        continue
+    p_data = data_getter.process_data(data)
+    if p_data == -1:
+        continue
 
     sending_text = '===================\n'
     sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
@@ -91,13 +90,10 @@ def get_data_now(wallet_id,get_short=0):
             sending_text += 'balance : ' + x['balance'] + '\n'
             sending_text += '===================\n'
 
-
-
     if is_running == False:
         sending_text += 'Miner Offline !!!\n'
         sending_text += 'Please Check.\n'
         sending_text += '===================\n'
-
 
     sending_text += 'BX Coin Price\n'
     sending_text += '===================\n'
@@ -105,9 +101,55 @@ def get_data_now(wallet_id,get_short=0):
     sending_text += 'ETH : ' + str(price['ETH']) + ' THB\n'
     sending_text += '===================\n'
 
+    return sending_text
+
+
+
+    #
+    # r = requests.get(api_link+wallet_id)
+    # if r.status_code != 200 or r.text.find('error') != -1:
+    #     print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
+    #     return -1
+    # data = r.text
+    # # print(data)
+    # p_data = process_data(data)
+    # # print p_data[:-1]
+    # price = coin_price.get_data()
+    #
+    # sending_text = '===================\n'
+    # sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
+    # sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
+    # sending_text += '===================\n'
+    #
+    # # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
+    # is_running = False
+    # for x in p_data[:-1]:
+    #     if get_short == 1 and float(x['speed'][:-3]) == 0:
+    #         continue
+    #     else:
+    #         is_running = True
+    #         sending_text += 'algo : ' + x['algo'] +'\n'
+    #         sending_text += 'speed : ' + x['speed'] + '\n'
+    #         sending_text += 'balance : ' + x['balance'] + '\n'
+    #         sending_text += '===================\n'
+    #
+    #
+    #
+    # if is_running == False:
+    #     sending_text += 'Miner Offline !!!\n'
+    #     sending_text += 'Please Check.\n'
+    #     sending_text += '===================\n'
+    #
+    #
+    # sending_text += 'BX Coin Price\n'
+    # sending_text += '===================\n'
+    # sending_text += 'BTC : ' + str(price['BTC']) + ' THB\n'
+    # sending_text += 'ETH : ' + str(price['ETH']) + ' THB\n'
+    # sending_text += '===================\n'
+
     # if sending_text.find('speed') == -1:
     #     sending_text += 'Can not get hashing rate,\n May be Miner offline please check'
-    return sending_text
+    # return sending_text
 
 
 # def get_and_send(is_get_short):
@@ -147,6 +189,9 @@ def process_data(data):
 
 @app.route('/', methods=['GET'])
 def get():
+    print '=================================='
+    print '===========KEEP ALIVE============='
+    print '=================================='
     return 'get'
 
 

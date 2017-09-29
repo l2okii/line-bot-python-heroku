@@ -40,7 +40,7 @@ algo_list = [
 
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 
-def get_data_now(wallet_id,get_short=0):
+def get_data_now(wallet_id):
     r = requests.get(api_link+wallet_id)
     if r.status_code != 200 or r.text.find('error') != -1:
         print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
