@@ -58,7 +58,7 @@ def process_data(data):
         sum_balance += float(x['balance'])
         # if float(x['accepted_speed']) > 0:
             # print 'algo', algo_list[x['algo']], 'speed', x['accepted_speed'], 'GHz', 'balance', x['balance'], 'BTC'
-        dic =  {'algo':algo_list[x['algo']], 'speed':str(float(x['accepted_speed'])*1000) +'MHs', 'balance':x['balance']+'BTC'}
+        dic =  {'algo':algo_list[x['algo']], 'speed':str(float(x['accepted_speed'])*1000) +' MHs', 'balance':x['balance']+' BTC'}
         list.append(dic)
 
             # print dic
