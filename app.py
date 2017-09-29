@@ -92,10 +92,18 @@ def get_data_now(wallet_id,get_short=0):
             sending_text += '===================\n'
 
 
+
     if is_running == False:
         sending_text += 'Miner Offline !!!\n'
         sending_text += 'Please Check.\n'
         sending_text += '===================\n'
+
+
+    sending_text += 'BX Coin Price\n'
+    sending_text += '===================\n'
+    sending_text += 'BTC : ' + str(price['BTC']) + ' THB\n'
+    sending_text += 'ETH : ' + str(price['ETH']) + ' THB\n'
+    sending_text += '===================\n'
 
     # if sending_text.find('speed') == -1:
     #     sending_text += 'Can not get hashing rate,\n May be Miner offline please check'
