@@ -2,8 +2,8 @@ import os
 import requests
 from threading import *
 import json
-import db_adapter
-import coin_price
+# import db_adapter
+# import coin_price
 
 algo_list = [
 'Scrypt'
@@ -58,10 +58,13 @@ def process_data(data):
         sum_balance += float(x['balance'])
         # if float(x['accepted_speed']) > 0:
             # print 'algo', algo_list[x['algo']], 'speed', x['accepted_speed'], 'GHz', 'balance', x['balance'], 'BTC'
-        dic =  {'algo':algo_list[x['algo']], 'speed':x['accepted_speed']+'GHz', 'balance':x['balance']+'BTC'}
+        dic =  {'algo':algo_list[x['algo']], 'speed':str(float(x['accepted_speed'])*1000) +'MHs', 'balance':x['balance']+'BTC'}
         list.append(dic)
 
             # print dic
     list.append(sum_balance)
-    # print list
+    print list
     return list
+
+if __name__ == '__main__':
+    process_data(get_data_now('3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'))
