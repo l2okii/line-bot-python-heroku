@@ -337,7 +337,7 @@ def post_to_line():
     global temp_detail
     if request.method == 'POST':
         print(request.data)
-        temp_detail = sending_text
+        temp_detail = request.data
         # r = send_line(request.data)
         # while r.status_code != 200:
         #     r = send_line(request.data)
