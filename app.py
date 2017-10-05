@@ -313,7 +313,7 @@ def handle_text_message(event):
         TextSendMessage(text=ack_text)) #reply the same message from user
 
 def send_line(sending_text):
-    temp_detail = sending_text
+    global temp_detail = sending_text
     Authorization = 'Bearer muwIp0la2JJzkUdnZM8u2xOxFhXx45Hna68DVbSIRh6'
     # headers = {'Content-Type': 'application/json; charset=UTF-8','Authorization':Authorization}
     ACCESS_TOKEN = 'muwIp0la2JJzkUdnZM8u2xOxFhXx45Hna68DVbSIRh6'
