@@ -315,6 +315,7 @@ def post_to_line():
     if request.method == 'POST':
         print(request.data)
 
+    return 'post complete'
     #     try:
     #         line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
     #             text='l2ig-Alert ! \n{}'.format(request.data)))
