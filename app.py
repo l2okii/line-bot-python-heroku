@@ -62,6 +62,8 @@ btc_wallet = '3BBNyPvUJHqKuH1ptipEVj9NPugMD2ig9S'
 
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 thread_obj = {}
+temp_detail = ''
+
 
 def get_data_now(wallet_id,get_short=0):
 
@@ -229,6 +231,7 @@ def handle_text_message(event):
 
     print '======= command ========/n'
     print text
+    print temp_detail
     print '======= command ========/n'
 
     if wallet == [] and text.find('register_') == -1:
@@ -310,6 +313,7 @@ def handle_text_message(event):
         TextSendMessage(text=ack_text)) #reply the same message from user
 
 def send_line(sending_text):
+    temp_detail = sending_text
     Authorization = 'Bearer muwIp0la2JJzkUdnZM8u2xOxFhXx45Hna68DVbSIRh6'
     # headers = {'Content-Type': 'application/json; charset=UTF-8','Authorization':Authorization}
     ACCESS_TOKEN = 'muwIp0la2JJzkUdnZM8u2xOxFhXx45Hna68DVbSIRh6'
@@ -323,6 +327,7 @@ def send_line(sending_text):
     # curl -X POST -H 'Authorization: Bearer <access_token>' -F 'message=foobar' https://notify-api.line.me/api/notify
     print(r.text)
     return r
+
 
 
 @app.route("/post/", methods=['GET', 'POST'])
