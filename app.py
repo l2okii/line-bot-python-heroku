@@ -309,13 +309,32 @@ def handle_text_message(event):
         event.reply_token,
         TextSendMessage(text=ack_text)) #reply the same message from user
 
+def send_line(sending_text):
+    Authorization = 'Bearer muwIp0la2JJzkUdnZM8u2xOxFhXx45Hna68DVbSIRh6'
+    # headers = {'Content-Type': 'application/json; charset=UTF-8','Authorization':Authorization}
+    ACCESS_TOKEN = 'muwIp0la2JJzkUdnZM8u2xOxFhXx45Hna68DVbSIRh6'
+    LINE_HEADERS = {'Authorization': 'Bearer ' + ACCESS_TOKEN}
+    URL = 'https://notify-api.line.me/api/notify'
+
+    message = {'message': sending_text}
+    r = requests.post(URL,headers=LINE_HEADERS,data=message)
+
+
+    # curl -X POST -H 'Authorization: Bearer <access_token>' -F 'message=foobar' https://notify-api.line.me/api/notify
+    print(r.text)
+    return r
+
 
 @app.route("/post/", methods=['GET', 'POST'])
 def post_to_line():
     if request.method == 'POST':
         print(request.data)
+        r = send_line(request.data)
+        while r.status_code != 200:
+            r = send_line(request.data)
+            time.sleep(5)
 
-    return 'post complete'
+        return 'post complete'
     #     try:
     #         line_bot_api.push_message('U124c9126948c40733c94109087411726', TextSendMessage(
     #             text='l2ig-Alert ! \n{}'.format(request.data)))
