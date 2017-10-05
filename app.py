@@ -242,6 +242,7 @@ def handle_text_message(event):
         # ack_text = 'hassssssh'
     elif text == 'all status':
         ack_text = get_data_now(wallet_id,0)
+        ack_text += temp_detail
         # ack_text = 'hwwwwww s'
     elif text == 'coin price':
         price = coin_price.get_data()
