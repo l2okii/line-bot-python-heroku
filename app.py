@@ -334,12 +334,14 @@ def send_line(sending_text):
 
 @app.route("/post/", methods=['GET', 'POST'])
 def post_to_line():
+    global temp_detail
     if request.method == 'POST':
         print(request.data)
-        r = send_line(request.data)
-        while r.status_code != 200:
-            r = send_line(request.data)
-            time.sleep(5)
+        temp_detail = sending_text
+        # r = send_line(request.data)
+        # while r.status_code != 200:
+        #     r = send_line(request.data)
+        #     time.sleep(5)
 
         return 'post complete'
     #     try:

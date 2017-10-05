@@ -165,10 +165,10 @@ class Worker(threading.Thread):
 
             sending_text = self.get_data()
 
-            send_line(sending_text)
-            # send_line_notify(sending_text, self.line_id)
+            # send_line(sending_text)
 
-            r = requests.post('https://l2ig-alert-line-bot.herokuapp.com/post/',data='test')
+            r = requests.post('https://l2ig-alert-line-bot.herokuapp.com/post/',data=sending_text)
+            print (r.text)
             time.sleep(self.interval)
 
 
@@ -236,7 +236,7 @@ class Worker(threading.Thread):
         c = dic['temp_fan_detail'].split(';')
         counter = 0
         for x in range(0,len(c)-1,2):
-            sending_text += 'GPU#' + str(counter) + ' : ' + c[x] + u'\N{DEGREE SIGN}' + 'C - ' + c[x+1] + ' % \n'
+            sending_text += 'GPU#' + str(counter) + ' : ' + c[x] + ' C - ' + c[x+1] + ' % \n'
             counter += 1
         sending_text += '===================\n'
 
