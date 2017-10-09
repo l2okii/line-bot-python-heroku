@@ -177,7 +177,7 @@ def get_data_now(wallet_id,get_short=0):
 def process_data(data):
     list = []
     json_data = json.loads(data)
-    json_data = json_data['result']['stats']
+    json_data = json_data['result']['com/nicehash/stats']
     sum_balance = 0
     for x in json_data:
         sum_balance += float(x['balance'])
@@ -285,6 +285,7 @@ def handle_text_message(event):
             obj = auto_run_report.auto_report(line_id, wallet_id)
             thread_obj.update({line_id:obj})
             obj.start()
+
             db_adapter.update_auto_state(line_id,True)
         # else:
         #     obj = thread_obj[line_id]
@@ -338,6 +339,7 @@ def post_to_line():
     if request.method == 'POST':
         print(request.data)
         temp_detail = request.data
+
         # r = send_line(request.data)
         # while r.status_code != 200:
         #     r = send_line(request.data)
