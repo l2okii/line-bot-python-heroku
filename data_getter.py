@@ -52,7 +52,7 @@ def get_data_now(wallet_id):
 def process_data(data):
     list = []
     json_data = json.loads(data)
-    json_data = json_data['result']['com/nicehash/stats']
+    json_data = json_data['result']['stats']
     sum_balance = 0
     for x in json_data:
         sum_balance += float(x['balance'])
