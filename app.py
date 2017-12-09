@@ -80,7 +80,7 @@ def get_etn_data_now():
     sending_text += '#worker : ' + num_worker
     sending_text += '===================\n'
 
-    if num_worker = 0:
+    if num_worker == 0:
         sending_text += 'Miner Offline !!!'
         sending_text += '===================\n'
     else:
@@ -340,7 +340,7 @@ def handle_text_message(event):
         ack_text = 'auto report is deactivated'
     elif text.lower() == 'etn':
         ack_text = get_etn_data_now()
-        
+
     else:
         ack_text = 'Wrong command!!!'
 
