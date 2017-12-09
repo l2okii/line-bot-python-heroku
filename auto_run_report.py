@@ -121,7 +121,7 @@ class Worker(threading.Thread):
             print '\n==============================='
 
 
-            if self.wa llet_id == 'etn':
+            if self.wallet_id == 'etn':
                 price = coin_price.etn_get_data()
                 data = data_getter.etn_get_data_now()
                 if data == -1:
@@ -143,7 +143,7 @@ class Worker(threading.Thread):
                     for x in p_data[:-1]:
                         if x['hashrate'] > 0:
                             sending_text += 'rigname : ' + x['rig_name'] +'\n'
-                            sending_text += 'hashrate : ' + str(x['hashrate']) + '\n'
+                            sending_text += 'hashrate :' + str(x['hashrate']) + '\n'
                             sending_text += '===================\n'
 
                 sending_text += 'ETN Coin Price\n'
