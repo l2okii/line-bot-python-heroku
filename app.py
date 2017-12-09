@@ -76,7 +76,7 @@ def get_etn_data_now():
         return -1
 
     sending_text = '===================\n'
-    num_worker = p_data[len(p_data-1)]
+    num_worker = p_data[len(p_data)-1]
     sending_text += '#worker : ' + num_worker
     sending_text += '===================\n'
 
