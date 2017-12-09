@@ -68,6 +68,9 @@ def etn_process_data(data):
 
 
 def get_data_now(wallet_id):
+    if wallet_id == 'etn':
+        etn_get_data_now()
+        
     r = requests.get(api_link+wallet_id)
     if r.status_code != 200 or r.text.find('error') != -1:
         print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))

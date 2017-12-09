@@ -121,42 +121,75 @@ class Worker(threading.Thread):
             print '\n==============================='
 
 
-            price = coin_price.get_data()
-            data = data_getter.get_data_now(self.wallet_id)
-            if data == -1:
-                continue
-            p_data = data_getter.process_data(data)
-            if p_data == -1:
-                continue
-
-            sending_text = '===================\n'
-            sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
-            sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
-            sending_text += '===================\n'
-
-            # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
-            is_running = False
-            get_short = 1
-            for x in p_data[:-1]:
-                if get_short == 1 and float(x['speed'][:-3]) == 0:
+            if wallet_id == 'etn':
+                price = coin_price.etn_get_data()
+                data = data_getter.etn_get_data_now()
+                if data == -1:
                     continue
-                else:
-                    is_running = True
-                    sending_text += 'algo : ' + x['algo'] +'\n'
-                    sending_text += 'speed : ' + x['speed'] + '\n'
-                    sending_text += 'balance : ' + x['balance'] + '\n'
-                    sending_text += '===================\n'
+                p_data = data_getter.etn_process_data(data)
 
-            if is_running == False:
-                sending_text += 'Miner Offline !!!\n'
-                sending_text += 'Please Check.\n'
+                if p_data == -1:
+                    continue
+
+                sending_text = '===================\n'
+                num_worker = p_data[len(p_data)-1]
+                sending_text += '#worker : ' + str(num_worker)
+                sending_text += '\n===================\n'
+
+                if num_worker == 0:
+                    sending_text += 'Miner Offline !!!'
+                    sending_text += '===================\n'
+                else:
+                    for x in p_data[:-1]:
+                        if x['hashrate'] > 0:
+                            sending_text += 'rigname : ' + x['rig_name'] +'\n'
+                            sending_text += 'hashrate :' + str(x['hashrate']) + '\n'
+                            sending_text += '===================\n'
+
+                sending_text += 'ETN Coin Price\n'
+                sending_text += '===================\n'
+                sending_text += 'BTC : ' + str(price['BTC']) + ' BTC\n'
+                sending_text += 'USD : ' + str(price['USD']) + ' USD\n'
                 sending_text += '===================\n'
 
-            sending_text += 'BX Coin Price\n'
-            sending_text += '===================\n'
-            sending_text += 'BTC : ' + str(price['BTC']) + ' THB\n'
-            sending_text += 'ETH : ' + str(price['ETH']) + ' THB\n'
-            sending_text += '===================\n'
+            else:
+                price = coin_price.get_data()
+                data = data_getter.get_data_now(self.wallet_id)
+
+                if data == -1:
+                    continue
+                p_data = data_getter.process_data(data)
+                if p_data == -1:
+                    continue
+
+                sending_text = '===================\n'
+                sending_text += 'Net Balance : \n' + str(p_data[len(p_data)-1]) + ' BTC\n'
+                sending_text += str(p_data[len(p_data)-1]*price['BTC']) + ' THB\n'
+                sending_text += '===================\n'
+
+                # print 'len p data = ', len(p_data[:-1]) , 'p data = ', p_data
+                is_running = False
+                get_short = 1
+                for x in p_data[:-1]:
+                    if get_short == 1 and float(x['speed'][:-3]) == 0:
+                        continue
+                    else:
+                        is_running = True
+                        sending_text += 'algo : ' + x['algo'] +'\n'
+                        sending_text += 'speed : ' + x['speed'] + '\n'
+                        sending_text += 'balance : ' + x['balance'] + '\n'
+                        sending_text += '===================\n'
+
+                if is_running == False:
+                    sending_text += 'Miner Offline !!!\n'
+                    sending_text += 'Please Check.\n'
+                    sending_text += '===================\n'
+
+                sending_text += 'BX Coin Price\n'
+                sending_text += '===================\n'
+                sending_text += 'BTC : ' + str(price['BTC']) + ' THB\n'
+                sending_text += 'ETH : ' + str(price['ETH']) + ' THB\n'
+                sending_text += '===================\n'
 
             send_line_notify(sending_text, self.line_id)
             time.sleep(self.interval)
