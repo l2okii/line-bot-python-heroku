@@ -95,6 +95,8 @@ def get_etn_data_now():
     sending_text += 'USD : ' + str(price['USD']) + ' USD\n'
     sending_text += '===================\n'
 
+    return sending_text
+
 
 def get_data_now(wallet_id,get_short=0):
 
