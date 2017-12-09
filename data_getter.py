@@ -62,7 +62,7 @@ def etn_process_data(data):
         list.append(dic)
 
             # print dic
-    list.append(workker_count)
+    list.append(worker_count)
     print list
     return list
 
