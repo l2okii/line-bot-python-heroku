@@ -85,11 +85,10 @@ def get_etn_data_now():
         sending_text += '===================\n'
     else:
         for x in p_data[:-1]:
-            if x['hashrate'] == 0:
-                continue
-            sending_text += 'rigname : ' + x['rig_name'] +'\n'
-            sending_text += 'hashrate :' + str(x['hashrate']) + '\n'
-            sending_text += '===================\n'
+            if x['hashrate'] > 0:
+                sending_text += 'rigname : ' + x['rig_name'] +'\n'
+                sending_text += 'hashrate :' + str(x['hashrate']) + '\n'
+                sending_text += '===================\n'
 
     sending_text += 'ETN Coin Price\n'
     sending_text += '===================\n'
