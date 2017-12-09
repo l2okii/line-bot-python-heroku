@@ -64,6 +64,37 @@ api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
 thread_obj = {}
 temp_detail = ''
 
+def get_etn_data_now():
+
+    price = coin_price.etn_get_data()
+    data = data_getter.etn_get_data_now()
+    if data == -1:
+        return -1
+    p_data = data_getter.etn_process_data(data)
+
+    if p_data == -1:
+        return -1
+
+    sending_text = '===================\n'
+    num_worker = p_data[len(p_data-1)]
+    sending_text += '#worker : ' + num_worker
+    sending_text += '===================\n'
+
+    if num_worker = 0:
+        sending_text += 'Miner Offline !!!'
+        sending_text += '===================\n'
+    else:
+        for x in p_data[:-1]:
+            sending_text += 'rigname : ' + x['rig_name']
+            sending_text += 'hashrate :' + x['hashrate']
+            sending_text += '===================\n'
+
+    sending_text += 'ETN Coin Price\n'
+    sending_text += '===================\n'
+    sending_text += 'BTC : ' + str(price['BTC']) + ' BTC\n'
+    sending_text += 'USD : ' + str(price['USD']) + ' USD\n'
+    sending_text += '===================\n'
+
 
 def get_data_now(wallet_id,get_short=0):
 
@@ -307,6 +338,9 @@ def handle_text_message(event):
         #     print thread_obj[line_id].isAlive()
         # auto_run_report.auto_report(line_id, wallet_id)
         ack_text = 'auto report is deactivated'
+    elif text.lower() == 'etn':
+        ack_text = get_etn_data_now()
+        
     else:
         ack_text = 'Wrong command!!!'
 

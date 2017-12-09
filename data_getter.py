@@ -39,6 +39,33 @@ algo_list = [
 ]
 
 api_link = 'https://api.nicehash.com/api?method=stats.provider&addr='
+etn_nano_api_link = 'https://api.nanopool.org/v1/etn/workers/etnjxUKyTjg4TBBiZPg9tH4mkd5hBQ9mdWhtb1Q5VvnM9jdoTk8yyr1VWnEomVpKoe1fEPGvB6gxnEu1c1wRm1Dh7mY4zjeRBV'
+
+def etn_get_data_now():
+    r = requests.get(etn_nano_api_link)
+    if r.status_code != 200 or r.text.find('error') != -1:
+        print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
+        return -1
+    data = r.text
+    return data
+
+def etn_process_data(data):
+    list = []
+    json_data = json.loads(data)
+    json_data = json_data['data']
+
+    for x in json_data:
+        workker_count +=  int(x['hashrate'] > 0)
+        # if float(x['accepted_speed']) > 0:
+            # print 'algo', algo_list[x['algo']], 'speed', x['accepted_speed'], 'GHz', 'balance', x['balance'], 'BTC'
+        dic =  {'rig_name':x['id'], 'hashrate':x['hashrate'] +' MHs'}
+        list.append(dic)
+
+            # print dic
+    list.append(workker_count)
+    print list
+    return list
+
 
 def get_data_now(wallet_id):
     r = requests.get(api_link+wallet_id)

@@ -6,6 +6,25 @@ import json
 
 api_link = 'https://bx.in.th/api/'
 
+etn_api_link = 'https://api.nanopool.org/v1/etn/prices'
+
+
+def etn_get_data('BTC':):
+    r = requests.get(etn_api_link)
+    if r.status_code != 200 or r.text.find('error') != -1:
+        print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
+        return -1
+    data = r.text
+    p_data = get_etn_price(data)
+    # print(data)
+    # p_data = process_data(data,coin_index)
+    # print p_data
+    return p_data
+
+def get_etn_price(data):
+    json_data = json.loads(data)
+    return {'BTC':json_data['data']['price_btc'], 'USD':json_data['data']['price_usd']}
+
 
 
 def get_data(coin_index=1):
