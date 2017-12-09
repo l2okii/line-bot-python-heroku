@@ -9,7 +9,7 @@ api_link = 'https://bx.in.th/api/'
 etn_api_link = 'https://api.nanopool.org/v1/etn/prices'
 
 
-def etn_get_data('BTC':):
+def etn_get_data():
     r = requests.get(etn_api_link)
     if r.status_code != 200 or r.text.find('error') != -1:
         print('error = ' + str(r.status_code) + ' \n ' + str(r.text.find('error')))
