@@ -77,7 +77,7 @@ def get_etn_data_now():
 
     sending_text = '===================\n'
     num_worker = p_data[len(p_data)-1]
-    sending_text += '#worker : ' + num_worker
+    sending_text += '#worker : ' + str(num_worker)
     sending_text += '===================\n'
 
     if num_worker == 0:
@@ -86,7 +86,7 @@ def get_etn_data_now():
     else:
         for x in p_data[:-1]:
             sending_text += 'rigname : ' + x['rig_name']
-            sending_text += 'hashrate :' + x['hashrate']
+            sending_text += 'hashrate :' + str(x['hashrate'])
             sending_text += '===================\n'
 
     sending_text += 'ETN Coin Price\n'
