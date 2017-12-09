@@ -58,7 +58,7 @@ def etn_process_data(data):
         worker_count +=  int(x['hashrate'] > 0)
         # if float(x['accepted_speed']) > 0:
             # print 'algo', algo_list[x['algo']], 'speed', x['accepted_speed'], 'GHz', 'balance', x['balance'], 'BTC'
-        dic =  {'rig_name':x['id'], 'hashrate':x['hashrate'] +' MHs'}
+        dic =  {'rig_name':x['id'], 'hashrate':str(x['hashrate']) +' MHs'}
         list.append(dic)
 
             # print dic
